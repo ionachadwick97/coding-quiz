@@ -13,29 +13,33 @@
 // 7. Submit button goes to highscores.
 
 
-
-// Prepare the questions in question.js file
-// var questions = ...
-// var score = 0;
-// var currentQuestion = 0;
-
-
-
-// Prepare all selector that we might need to point to the html element
+// variable declarations
 var startButton = document.querySelector('#start');
 var startScreen = document.querySelector("#start-screen");
 var questionsContainer = document.querySelector("#questions");
-var questionsTitle = document.querySelector("#question-title");
+var questionTitle = document.querySelector("#question-title");
 var choicesContainer = document.querySelector("#choices");
 var timerContainer = document.querySelector("#timer");
 var endScreenContainer = document.querySelector("#end-screen");
 var finalScoreContainer = document.querySelector("#final-score");
-// var questions = 
+var score = 0;
 
 
-// questions.forEach(function(question) {
-//     populateQuestion(question);
-// });
+// questions array
+var title = [];
+for (let i = 0; i<questions.length; i++) {
+    tempTitles = questions[i].title;
+    title.push(tempTitles)
+}
+
+
+// choices array
+var choices = [];
+for (let i = 0; i<questions.length; i++) {
+    tempChoices = questions[i].choices;
+    choices.push(tempChoices)
+}
+
 
 // start button && timer
 startButton.addEventListener('click', function() {
@@ -43,35 +47,43 @@ startButton.addEventListener('click', function() {
     questionsContainer.setAttribute('class', 'visible');
 
 
-//     currentQuestion = 0;
-     populateQuestion(questions[1]);
 
-     var counter = 100;
-     var timer = setInterval(function() {
-         counter--;
-         timerContainer.textContent = counter;
-         if (counter <= 0) {
-             endGame()
-             clearInterval(timer);
-         }
-     }, 1000);
+     populateQuestion();
+
+    //  var counter = 300;
+    //  var timer = setInterval(function() {
+    //      counter--;
+    //      timerContainer.textContent = counter;
+    //      if (counter <= 0) {
+    //          endGame()
+    //          clearInterval(timer);
+    //      }
+    //  }, 1000);
 });
+
 
 //populate question
 function populateQuestion(question) {
-    var question = question.title;
-    var choices = question.choices;
-
     choicesContainer.innerHTML = '';
-    questionTitle.textContent = question;
+    questionTitle.textContent = title[0];
     var choicesList = document.createElement('ul');
-    for (let i = 0; i < choices.length; i++) {
+    for (let i = 0; i < 4; i++) {
         var choice = document.createElement('li');
-        choice.textContent = choices[i];
+        choice.textContent = choices[0][i];
         choicesList.appendChild(choice);
     }
     choicesContainer.appendChild(choicesList);
 }
+
+li.addEventListener("click", answer) {
+
+    
+}
+
+// question results
+
+
+
 
 //end game
 function endGame() {
@@ -83,6 +95,7 @@ function endGame() {
      clearInterval(timer);
 }
 
+
 //next question
 function nextQuestion() {
     currentQuestion++;
@@ -93,21 +106,25 @@ function nextQuestion() {
     }
 }
 
+
 //save high score
 function saveHighscore(initial) {
     // get the current highscores value from localstorage
-    // json parse current highscores from localstorage, this will be an array of object
+    // json parse current highscores from localstorage, this will be an array of objects
     // push initial + score to the array
     // order the array from highest score to lowest
     // json stringify then save back to localstorage
 }
+
 
 // Another click event listener on li for choices
 //    Check answer
 //        if correct, add 1 to score, call nextQuestion()
 //        if wrong, remove 10 seconds from the interval, call nextQuestion()
 
+
 // Click event listener to submit button
 //    var initial = initialInput.value.trim()
 //    saveHighscore(initial)
 //    redirect to highscore page
+

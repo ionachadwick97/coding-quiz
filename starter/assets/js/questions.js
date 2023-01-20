@@ -1,6 +1,6 @@
-var question = [{
+var questions = [{
     title: "1. How do you write 'Hello World' in an alert box?",
-    choices: ["msg('Hello World')", "msgBox('Hello World');", "alertBox('Hello World');", "alert('Hello World');"],
+    choices: ["msg('Hello World')", "msgBox('Hello World')", "alertBox('Hello World')", "alert('Hello World')"],
     answer: "alert('Hello World');"
 }, {
     title: "2. How to empty an array in JavaScript?",
@@ -39,6 +39,4 @@ var question = [{
     choices: ["'32'", "'122'", "'13'", "'14'"],
     answer: "'122'"
 }];
-
-
 
