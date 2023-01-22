@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // 1. Start button that goes to first question when clicked.
-=======
-/ 1. Start button that goes to first question when clicked.
->>>>>>> 590be7ee315f774ffd68c2c70415f0644529c312
 
 // 2. Multiple choice questions with buttons for each answer.
 
@@ -131,7 +127,3 @@ function saveHighscore(initial) {
 //    var initial = initialInput.value.trim()
 //    saveHighscore(initial)
 //    redirect to highscore page
-<<<<<<< HEAD
-
-=======
->>>>>>> 590be7ee315f774ffd68c2c70415f0644529c312
