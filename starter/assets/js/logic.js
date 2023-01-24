@@ -75,10 +75,10 @@ function populateQuestion(question) {
     choicesContainer.appendChild(choicesList);
 }
 
-li.addEventListener("click", answer) {
+// li.addEventListener("click", answer) {
 
-    
-}
+// }
+
 
 // question results
 

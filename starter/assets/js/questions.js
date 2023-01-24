@@ -1,12 +1,6 @@
-<<<<<<< HEAD
 var questions = [{
     title: "1. How do you write 'Hello World' in an alert box?",
     choices: ["msg('Hello World')", "msgBox('Hello World')", "alertBox('Hello World')", "alert('Hello World')"],
-=======
-var question = [{
-    title: "1. How do you write 'Hello World' in an alert box?",
-    choices: ["msg('Hello World')", "msgBox('Hello World');", "alertBox('Hello World');", "alert('Hello World');"],
->>>>>>> 590be7ee315f774ffd68c2c70415f0644529c312
     answer: "alert('Hello World');"
 }, {
     title: "2. How to empty an array in JavaScript?",
@@ -46,8 +40,3 @@ var question = [{
     answer: "'122'"
 }];
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 590be7ee315f774ffd68c2c70415f0644529c312
