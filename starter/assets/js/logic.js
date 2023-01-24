@@ -23,6 +23,7 @@ var timerContainer = document.querySelector("#timer");
 var endScreenContainer = document.querySelector("#end-screen");
 var finalScoreContainer = document.querySelector("#final-score");
 var score = 0;
+var questionIndex = 0;
 
 
 // questions array
@@ -63,22 +64,30 @@ startButton.addEventListener('click', function() {
 
 
 //populate question
-function populateQuestion(question) {
+function populateQuestion() {
     choicesContainer.innerHTML = '';
-    questionTitle.textContent = title[0];
-    var choicesList = document.createElement('ul');
+    questionTitle.textContent = title[questionIndex];
+    // var choicesList = document.createElement('ul');
     for (let i = 0; i < 4; i++) {
-        var choice = document.createElement('li');
-        choice.textContent = choices[0][i];
-        choicesList.appendChild(choice);
+        var choice = document.createElement('button');
+        choice.textContent = choices[questionIndex][i];
+        console.log(choices[questionIndex][i])
+        choicesContainer.appendChild(choice);
+        choice.addEventListener("click", handleAnswer)
     }
-    choicesContainer.appendChild(choicesList);
-}
+//     choicesContainer.appendChild(choicesList);
+ }
 
 // li.addEventListener("click", answer) {
 
 // }
-
+function handleAnswer() {
+    console.log("answer choice click")
+    // questionIndex++
+    //check if questionIndex === questions.length
+    //call endGame
+    //else populateQuestion()
+}
 
 // question results
 
