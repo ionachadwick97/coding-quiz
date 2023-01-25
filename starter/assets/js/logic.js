@@ -19,12 +19,16 @@ var startScreen = document.querySelector("#start-screen");
 var questionsContainer = document.querySelector("#questions");
 var questionTitle = document.querySelector("#question-title");
 var choicesContainer = document.querySelector("#choices");
-var timerContainer = document.querySelector("#timer");
+var timerContainer = document.querySelector(".timer");
 var endScreenContainer = document.querySelector("#end-screen");
 var finalScoreContainer = document.querySelector("#final-score");
 var score = 0;
 var questionIndex = 0;
 
+//show score
+var showScore = document.createElement("div");
+ showScore.textContent = "Score: " + score;
+ timerContainer.appendChild(showScore)
 
 // questions array
 var title = [];
@@ -46,10 +50,7 @@ for (let i = 0; i<questions.length; i++) {
 startButton.addEventListener('click', function() {
     startScreen.setAttribute('class', 'hide');
     questionsContainer.setAttribute('class', 'visible');
-
-
-
-     populateQuestion();
+    populateQuestion();
 
     //  var counter = 300;
     //  var timer = setInterval(function() {
@@ -67,32 +68,31 @@ startButton.addEventListener('click', function() {
 function populateQuestion() {
     choicesContainer.innerHTML = '';
     questionTitle.textContent = title[questionIndex];
-    // var choicesList = document.createElement('ul');
     for (let i = 0; i < 4; i++) {
         var choice = document.createElement('button');
         choice.textContent = choices[questionIndex][i];
-        console.log(choices[questionIndex][i])
         choicesContainer.appendChild(choice);
         choice.addEventListener("click", handleAnswer)
     }
-//     choicesContainer.appendChild(choicesList);
- }
+ };
 
-// li.addEventListener("click", answer) {
-
-// }
+//next question
 function handleAnswer() {
-    console.log("answer choice click")
-    // questionIndex++
-    //check if questionIndex === questions.length
-    //call endGame
-    //else populateQuestion()
-}
+    questionIndex++
+    if (questionIndex < questions.length) {
+        populateQuestion();
+    } else {
+        endGame();
+    }
 
-// question results
+    if (option == answer) {
+        score++;
 
+    } else {
+        counter - 10;
+    }
 
-
+};
 
 //end game
 function endGame() {
