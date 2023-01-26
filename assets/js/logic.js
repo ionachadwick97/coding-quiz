@@ -14,24 +14,21 @@
 
 
 // variable declarations
-var startButton = document.querySelector('#start');
-var startScreen = document.querySelector("#start-screen");
-var questionsContainer = document.querySelector("#questions");
-var questionTitle = document.querySelector("#question-title");
-var choicesContainer = document.querySelector("#choices");
-var timerContainer = document.querySelector(".timer");
-var endScreenContainer = document.querySelector("#end-screen");
-var finalScoreContainer = document.querySelector("#final-score");
-var score = 0;
-var questionIndex = 0;
+const startButton = document.querySelector('#start');
+const startScreen = document.querySelector("#start-screen");
+const questionsContainer = document.querySelector("#questions");
+const questionTitle = document.querySelector("#question-title");
+const choicesContainer = document.querySelector("#choices");
+const timerContainer = document.querySelector(".timer");
+const endScreenContainer = document.querySelector("#end-screen");
+const finalScoreContainer = document.querySelector("#final-score");
+const timer = document.querySelector("#time");
+let score = 0;
+let questionIndex = 0;
 
-//show score
-var showScore = document.createElement("div");
- showScore.textContent = "Score: " + score;
- timerContainer.appendChild(showScore)
 
 // questions array
-var title = [];
+const title = [];
 for (let i = 0; i<questions.length; i++) {
     tempTitles = questions[i].title;
     title.push(tempTitles)
@@ -39,7 +36,7 @@ for (let i = 0; i<questions.length; i++) {
 
 
 // choices array
-var choices = [];
+const choices = [];
 for (let i = 0; i<questions.length; i++) {
     tempChoices = questions[i].choices;
     choices.push(tempChoices)
@@ -47,21 +44,22 @@ for (let i = 0; i<questions.length; i++) {
 
 
 // start button && timer
+let counter = 300;
 startButton.addEventListener('click', function() {
     startScreen.setAttribute('class', 'hide');
     questionsContainer.setAttribute('class', 'visible');
     populateQuestion();
 
-    //  var counter = 300;
-    //  var timer = setInterval(function() {
-    //      counter--;
-    //      timerContainer.textContent = counter;
-    //      if (counter <= 0) {
-    //          endGame()
-    //          clearInterval(timer);
-    //      }
-    //  }, 1000);
+     let countdown = setInterval(function() {
+         counter--;
+         if (counter <= 0) {
+             endGame()
+             clearInterval(countdown);
+         }
+     }, 1000);
+
 });
+timer.textContent = counter;
 
 
 //populate question
@@ -69,30 +67,31 @@ function populateQuestion() {
     choicesContainer.innerHTML = '';
     questionTitle.textContent = title[questionIndex];
     for (let i = 0; i < 4; i++) {
-        var choice = document.createElement('button');
+        const choice = document.createElement('button');
         choice.textContent = choices[questionIndex][i];
         choicesContainer.appendChild(choice);
-        choice.addEventListener("click", handleAnswer)
+        choice.addEventListener("click", function(event) {
+            const option = event.target.textContent;
+            console.log(option)
+            questionIndex++
+            if (questionIndex < questions.length) {
+                populateQuestion();
+            } else {
+                endGame();
+            }
+            console.log(questions[questionIndex-1].answer)
+            console.log(score)
+            if (option === questions[questionIndex-1].answer) {
+                    score++;
+            
+                 } else {
+                    counter - 10;
+                }
+        
+        });
     }
  };
-
-//next question
-function handleAnswer() {
-    questionIndex++
-    if (questionIndex < questions.length) {
-        populateQuestion();
-    } else {
-        endGame();
-    }
-
-    if (option == answer) {
-        score++;
-
-    } else {
-        counter - 10;
-    }
-
-};
+console.log(score)
 
 //end game
 function endGame() {
@@ -116,6 +115,12 @@ function nextQuestion() {
 }
 
 
+//show score
+const showScore = document.createElement("div");
+ showScore.textContent = "Score: " + score;
+ timerContainer.appendChild(showScore)
+
+
 //save high score
 function saveHighscore(initial) {
     // get the current highscores value from localstorage
@@ -124,12 +129,6 @@ function saveHighscore(initial) {
     // order the array from highest score to lowest
     // json stringify then save back to localstorage
 }
-
-
-// Another click event listener on li for choices
-//    Check answer
-//        if correct, add 1 to score, call nextQuestion()
-//        if wrong, remove 10 seconds from the interval, call nextQuestion()
 
 
 // Click event listener to submit button

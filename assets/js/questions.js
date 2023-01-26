@@ -1,7 +1,7 @@
 var questions = [{
     title: "1. How do you write 'Hello World' in an alert box?",
     choices: ["msg('Hello World')", "msgBox('Hello World')", "alertBox('Hello World')", "alert('Hello World')"],
-    answer: "alert('Hello World');"
+    answer: "alert('Hello World')"
 }, {
     title: "2. How to empty an array in JavaScript?",
     choices: ["arrayList[]", "arrayList(0)", "arrayList.length=0", "arrayList.len(0)"],
