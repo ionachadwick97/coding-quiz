@@ -52,6 +52,7 @@ startButton.addEventListener('click', function() {
 
      let countdown = setInterval(function() {
          counter--;
+         timer.textContent = counter;
          if (counter <= 0) {
              endGame()
              clearInterval(countdown);
@@ -59,8 +60,13 @@ startButton.addEventListener('click', function() {
      }, 1000);
 
 });
-timer.textContent = counter;
 
+
+
+//show score
+const showScore = document.createElement("div");
+ showScore.textContent = "Score: 0";
+ timerContainer.appendChild(showScore)
 
 //populate question
 function populateQuestion() {
@@ -80,18 +86,18 @@ function populateQuestion() {
                 endGame();
             }
             console.log(questions[questionIndex-1].answer)
-            console.log(score)
+
             if (option === questions[questionIndex-1].answer) {
                     score++;
             
                  } else {
-                    counter - 10;
+                    counter -= 10;
                 }
-        
+            showScore.textContent = "Score: " + score;
         });
     }
  };
-console.log(score)
+
 
 //end game
 function endGame() {
@@ -113,12 +119,6 @@ function nextQuestion() {
         endGame();
     }
 }
-
-
-//show score
-const showScore = document.createElement("div");
- showScore.textContent = "Score: " + score;
- timerContainer.appendChild(showScore)
 
 
 //save high score
