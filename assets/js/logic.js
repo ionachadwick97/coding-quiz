@@ -23,6 +23,9 @@ const timerContainer = document.querySelector(".timer");
 const endScreenContainer = document.querySelector("#end-screen");
 const finalScoreContainer = document.querySelector("#final-score");
 const timer = document.querySelector("#time");
+const submitButton = document.querySelector("#submit")
+let highScore = document.querySelector(".highScore")
+let initialInput = document.querySelector("#initials")
 let score = 0;
 let questionIndex = 0;
 
@@ -62,11 +65,11 @@ startButton.addEventListener('click', function() {
 });
 
 
-
 //show score
 const showScore = document.createElement("div");
  showScore.textContent = "Score: 0";
  timerContainer.appendChild(showScore)
+
 
 //populate question
 function populateQuestion() {
@@ -101,12 +104,10 @@ function populateQuestion() {
 
 //end game
 function endGame() {
-    // When the game ends, it should display their score and give the user the ability to save their initials and their score
-
      questionsContainer.setAttribute("class", "hide");
      endScreenContainer.setAttribute("class", "visible");
      finalScoreContainer.textContent = score;
-     clearInterval(timer);
+     clearInterval(counter);
 }
 
 
@@ -122,16 +123,19 @@ function nextQuestion() {
 
 
 //save high score
-function saveHighscore(initial) {
-    // get the current highscores value from localstorage
+submitButton.addEventListener("click", function() {
+    let initialStorage = initialInput.value.trim();
+    let scoreStorage = score;
+    saveHighscore(initialStorage, scoreStorage)
+})
+
+
+function saveHighscore(initialStorage, scoreStorage) {
+    for (let i = 0; i<highScore.length; i++) {
+        highScore.value(localStorage.getItem(initialStorage, ))
+    }
     // json parse current highscores from localstorage, this will be an array of objects
     // push initial + score to the array
     // order the array from highest score to lowest
     // json stringify then save back to localstorage
 }
-
-
-// Click event listener to submit button
-//    var initial = initialInput.value.trim()
-//    saveHighscore(initial)
-//    redirect to highscore page
