@@ -28,7 +28,15 @@ let highScore = document.querySelector(".highScore")
 let initialInput = document.querySelector("#initials")
 let score = 0;
 let questionIndex = 0;
+let highScores;
+let savedStorage = JSON.parse(localStorage.getItem("localScore"));
 
+// check if local storage is empty
+if (localStorage == null) {
+    highScores = []
+} else {
+    highScores = savedStorage
+};
 
 // questions array
 const title = [];
@@ -47,7 +55,7 @@ for (let i = 0; i<questions.length; i++) {
 
 
 // start button && timer
-let counter = 300;
+let counter = 90;
 startButton.addEventListener('click', function() {
     startScreen.setAttribute('class', 'hide');
     questionsContainer.setAttribute('class', 'visible');
@@ -58,7 +66,6 @@ startButton.addEventListener('click', function() {
          timer.textContent = counter;
          if (counter <= 0) {
              endGame()
-             clearInterval(countdown);
          }
      }, 1000);
 
@@ -86,6 +93,7 @@ function populateQuestion() {
             if (questionIndex < questions.length) {
                 populateQuestion();
             } else {
+                finalScoreContainer.textContent = score;
                 endGame();
             }
             console.log(questions[questionIndex-1].answer)
@@ -96,18 +104,22 @@ function populateQuestion() {
                  } else {
                     counter -= 10;
                 }
+             
             showScore.textContent = "Score: " + score;
         });
     }
  };
+
+ 
 
 
 //end game
 function endGame() {
      questionsContainer.setAttribute("class", "hide");
      endScreenContainer.setAttribute("class", "visible");
+     console.log(score)
      finalScoreContainer.textContent = score;
-     clearInterval(counter);
+     clearInterval(countdown);
 }
 
 
@@ -123,19 +135,16 @@ function nextQuestion() {
 
 
 //save high score
+
 submitButton.addEventListener("click", function() {
-    let initialStorage = initialInput.value.trim();
-    let scoreStorage = score;
-    saveHighscore(initialStorage, scoreStorage)
-})
-
-
-function saveHighscore(initialStorage, scoreStorage) {
-    for (let i = 0; i<highScore.length; i++) {
-        highScore.value(localStorage.getItem(initialStorage, ))
+    let initials = initialInput.value;
+    console.log(initials)
+    let scoreObject = {
+        savedInitials: initials,
+        savedScore: score
     }
-    // json parse current highscores from localstorage, this will be an array of objects
-    // push initial + score to the array
-    // order the array from highest score to lowest
-    // json stringify then save back to localstorage
-}
+    highScores.push(scoreObject);
+
+    localStorage.setItem("localScore", JSON.stringify(highScores))
+});
+
