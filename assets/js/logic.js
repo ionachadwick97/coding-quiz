@@ -23,23 +23,16 @@ const timerContainer = document.querySelector(".timer");
 const endScreenContainer = document.querySelector("#end-screen");
 const finalScoreContainer = document.querySelector("#final-score");
 const timer = document.querySelector("#time");
-const submitButton = document.querySelector("#submit")
-let highScore = document.querySelector(".highScore")
-let initialInput = document.querySelector("#initials")
+const submitButton = document.querySelector("#submit");
+let highScore = document.querySelector(".highScore");
+let initialInput = document.querySelector("#initials");
 let score = 0;
 let questionIndex = 0;
-let highScores;
-let savedStorage = JSON.parse(localStorage.getItem("localScore"));
+let highScores = [];
 
-// check if local storage is empty
-if (localStorage == null) {
-    highScores = []
-} else {
-    highScores = savedStorage
-};
 
 // questions array
-const title = [];
+let title = [];
 for (let i = 0; i<questions.length; i++) {
     tempTitles = questions[i].title;
     title.push(tempTitles)
@@ -60,16 +53,15 @@ startButton.addEventListener('click', function() {
     startScreen.setAttribute('class', 'hide');
     questionsContainer.setAttribute('class', 'visible');
     populateQuestion();
-
-     let countdown = setInterval(function() {
-         counter--;
-         timer.textContent = counter;
-         if (counter <= 0) {
-             endGame()
-         }
-     }, 1000);
-
-});
+    let countdown = setInterval(function() {
+        counter--;
+        timer.textContent = counter;
+        if (counter <= 0) {
+            endGame()
+            clearInterval(countdown);
+        }
+    }, 1000);
+})
 
 
 //show score
@@ -83,7 +75,7 @@ function populateQuestion() {
     choicesContainer.innerHTML = '';
     questionTitle.textContent = title[questionIndex];
     for (let i = 0; i < 4; i++) {
-        const choice = document.createElement('button');
+        let choice = document.createElement('button');
         choice.textContent = choices[questionIndex][i];
         choicesContainer.appendChild(choice);
         choice.addEventListener("click", function(event) {
@@ -108,9 +100,7 @@ function populateQuestion() {
             showScore.textContent = "Score: " + score;
         });
     }
- };
-
- 
+}
 
 
 //end game
@@ -119,7 +109,6 @@ function endGame() {
      endScreenContainer.setAttribute("class", "visible");
      console.log(score)
      finalScoreContainer.textContent = score;
-     clearInterval(countdown);
 }
 
 
@@ -135,7 +124,6 @@ function nextQuestion() {
 
 
 //save high score
-
 submitButton.addEventListener("click", function() {
     let initials = initialInput.value;
     console.log(initials)
@@ -143,8 +131,8 @@ submitButton.addEventListener("click", function() {
         savedInitials: initials,
         savedScore: score
     }
+
     highScores.push(scoreObject);
 
     localStorage.setItem("localScore", JSON.stringify(highScores))
-});
-
+})
